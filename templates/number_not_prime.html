@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+Это составное число!
+Его делители:
+<ul class="list-group" style="">
+{% for d in dividers %}
+    <li class="list-group-item">
+        {{ d }}
+    </li>
+{% endfor %}
+</ul>
+{% endblock content %}
