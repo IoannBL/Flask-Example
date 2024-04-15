@@ -2,5 +2,10 @@
 ## Локально запускается через файл main.py
 ### Главная страница
 ![Снимок 1](https://github.com/IoannBL/Flask-Example/assets/98663779/3fc0ee33-f88c-42da-abbb-0deb39460555)
+### Страница авторизации 
+![Снимок 2](https://github.com/IoannBL/Flask-Example/assets/98663779/addb70dd-fc37-4426-9589-3d275191bc1e)
+
+
+
 
 
