@@ -35,11 +35,7 @@ def login():
         user = request.form["nm"]
         session["user"] = user
 
-        found_user = Users.query.filter_by(name=user).first() 
-        '''Удаление объектов:'''
-        # found_user = Users.query.filter_by(name=user).delete() 
-        # for user in found_user:
-        #     user.delete()
+        found_user = Users.query.filter_by(name=user).first()
         if found_user:
             session["email"] = found_user.email
         
@@ -48,11 +44,11 @@ def login():
             db.session.add(usr)
             db.session.commit()
 
-        flash("Login Succesful")
+        flash(f"Добро пожаловать, {user}!")
         return redirect(url_for("user"))
     else:
         if "user" in session:
-            flash("Already Logged In")
+            flash("Вход уже выполнен")
             return redirect(url_for("user"))
         
         return render_template("login.html")
@@ -68,19 +64,19 @@ def user():
             found_user = Users.query.filter_by(name=user).first() 
             found_user.email = email
             db.session.commit()
-            flash("Email was saved")
+            flash("Почта сохранена")
         else:
             if "email" in session:
                 email = session["email"]
         return render_template("user.html", email = email)
     else:
-        flash("You are not Logged In")
+        flash("Вы не вошли в систему")
         return redirect(url_for("login")) 
     
 
 @app.route("/logout")
 def logout():
-    flash("You have been logger out!", "info")
+    flash("Вы вышли из системы!", "info")
     session.pop("user", None)
     session.pop("email", None)
     return redirect(url_for("login"))

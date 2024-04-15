@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {%block title %}View All Users{%endblock%}
 {%block content%}
+<div class = "all-tab">
     {% for item in values %}
+    <div class = "tabl">
         <p>Name: {{item.name}}, Email: {{item.email}}</p>
+    </div>
     {%endfor%}
+</div>
 {%endblock%}
