@@ -1,5 +1,6 @@
 # Проект на Flask представляет собой сайт для обмена информации между пользователями (в данном случае электронной почтой)
 ## Локально запускается через файл main.py
 ### Главная страница
-![image](https://github.com/IoannBL/Flask-Example/assets/98663779/3ffdd498-54f9-4fe4-828b-2431ca57c587)
+![Снимок 1](https://github.com/IoannBL/Flask-Example/assets/98663779/3fc0ee33-f88c-42da-abbb-0deb39460555)
+
 
