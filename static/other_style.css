@@ -20,7 +20,7 @@ body{
 
 .name{
     font-weight: 30px;
-    font-size: 30px;
+    font-size: 20px;
     background-color: rgba(255, 255, 255, 0.4); 
     padding: 20px;
     width: 400px; /* Фиксированная ширина блока */
@@ -34,6 +34,34 @@ body{
     
     
 }
+
+
+
+
+.user-page{
+    .container {
+        display: flex;
+        height: 100vh; /* Занимаем всю высоту окна браузера */
+    }
+    
+}
+
+.first-container {
+    font-weight: 30px;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.4); 
+    padding: 20px;
+    width: 400px; /* Фиксированная ширина блока */
+
+    margin: 0 auto; /* Центрирование блока по горизонтали */
+    text-align: center; /* Центрирование текста в блоке */
+    border-radius:0 0 20px 20px; /* Закругления только внизу */
+    /* opacity: 0;
+    animation: ani 3s forwards; */
+}
+
+
+
 .button-name input[type="submit"] {
     width: 150px; /* Устанавливаем ширину кнопки */
     height: 50px; /* Устанавливаем высоту кнопки */
@@ -59,10 +87,21 @@ body{
      
 }
 
-.message{
+.message {
     text-align: center;
-    padding-top: -300px;
     font-size: 20px;
+    position: relative;
+    animation: fadeOut 4s forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        display: none;
+    }
 }
 
 .input-field {
@@ -87,13 +126,31 @@ body{
     font-size: 20px; /* Размер шрифта кнопки */
     cursor: pointer; /* Задаем стиль указателя при наведении на кнопку */
     box-shadow: 0 5 10px 5px rgba(255, 255, 255, 0.5);
+    margin-bottom: 30px;
+    margin-top: -20px;
+
+
+}
+.message_last{
+    overflow: auto; /* Разрешаем появление полос прокрутки при необходимости */
+    max-height: 400px; /* Устанавливаем максимальную высоту блока */
+    margin: 0 auto; 
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.4); 
+    padding: 20px;
+    width: 400px; /* Фиксированная ширина блока */
+    border-radius:20px 20px 0 0 ; /* Закругления только внизу */
+
 }
 
 .all-tab{
     overflow: auto; /* Разрешаем появление полос прокрутки при необходимости */
     max-height: 400px; /* Устанавливаем максимальную высоту блока */
     margin: 0 auto; 
-
+    text-align: center;
+    
+    padding: 20px;
+   
 
 }
 .tabl {

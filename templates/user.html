@@ -1,18 +1,31 @@
 {% extends "base.html" %}
-{%block title %}User{%endblock%}
-{%block content%}
+{% block title %}User{% endblock %}
+{% block content %}
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            {% for msg in messages %}
-                <p class = "message">{{msg}}</p>
-            {% endfor %}
+            <div class="messages">
+                {% for msg in messages %}
+                    <p class="message">{{ msg }}</p>
+                {% endfor %}
+            </div>
         {% endif %}
     {% endwith %}
-    <div class = "name">
-<form action="#" method="POST">
-    <p class = "name-input">Электронная почта</p>
-    <input type="email" name="email" placeholder="Email" value="{{email if email}}" class="input-field"/>
-    <input type="submit" value="сохранить" class="submit-button"/>
-</form>
-</div>
-{%endblock%}
+    
+    <!-- <h2>All Messages:</h2> -->
+    <div class="message_last">
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message.user.name }}: {{ message.content }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    
+    <div class="first-container">
+        <form action="#" method="POST">
+            <p class="name-input">------------------------------------------</p>
+            <textarea name="content" placeholder="Введите ваше сообщение" class="input-field"></textarea>
+            <input type="submit" name="submit_message" value="Отправить" class="submit-button"/>
+        </form>
+    </div>
+    
+{% endblock %}
