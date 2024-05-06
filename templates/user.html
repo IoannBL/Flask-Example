@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}User{% endblock %}
+{% block title %}Пользователь{% endblock %}
 {% block content %}
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -10,22 +10,46 @@
             </div>
         {% endif %}
     {% endwith %}
-    
-    <!-- <h2>All Messages:</h2> -->
-    <div class="message_last">
-        {% if messages %}
-            {% for message in messages %}
-                <p>{{ message.user.name }}: {{ message.content }}</p>
-            {% endfor %}
-        {% endif %}
+
+    <div class="user-list">
+        <ul>
+            {% for user in users %}
+            <li>
+                <a href="{{ url_for('profile', username=user.name) }}">Пользователь {{ user.name }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div class="user-info">
+        <p>Имя пользователя: {{ user_name }}</p>
+        <p>Электронная почта: {{ email }}</p>
+    </div>
+
+    <div class="container"> 
+  
+        <div class="chat">
+            <h2>Общий чат:</h2>
+            <div class="message_last">
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{ message.user.name }}: {{ message.content }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="first-container">
+                <form action="#" method="POST">
+                    <p class="name-input">------------------------------------------</p>
+                    <textarea name="content" placeholder="сообщение" class="input-field"></textarea>
+                    <input type="submit" name="submit_message" value="Отправить" class="submit-button"/>
+                </form>
+            </div>
+        </div>
     </div>
     
-    <div class="first-container">
-        <form action="#" method="POST">
-            <p class="name-input">------------------------------------------</p>
-            <textarea name="content" placeholder="Введите ваше сообщение" class="input-field"></textarea>
-            <input type="submit" name="submit_message" value="Отправить" class="submit-button"/>
-        </form>
-    </div>
-    
+    <script>
+        var generalChatMessageLast = document.querySelector('.chat .message_last');
+        generalChatMessageLast.scrollTop = generalChatMessageLast.scrollHeight;
+    </script>
+
 {% endblock %}

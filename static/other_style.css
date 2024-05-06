@@ -35,6 +35,42 @@ body{
     
 }
 
+.user-list{
+    position: fixed;
+    top: 200px; /* Отступ сверху */
+    left: 20px; /* Отступ слева */
+    font-weight: bold;
+    font-weight: 30px;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.4); 
+    padding: 20px;
+    width: 400px;
+    border-radius: 20px;
+    
+}
+
+.user-list a {
+    color: rgb(0, 0, 0); /* Цвет ссылок */
+    text-decoration: none; /* Убрать подчеркивание ссылок */
+}
+
+.user-list a:hover {
+    color: rgb(255, 255, 255); /* Цвет ссылок при наведении */
+}
+
+.user-info {
+    position: fixed;
+    top: 20px; /* Отступ сверху */
+    left: 20px; /* Отступ слева */
+    font-weight: bold;
+    font-weight: 30px;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.4); 
+    padding: 20px;
+    width: 400px;
+    border-radius: 20px;
+    
+}
 
 
 
@@ -132,6 +168,7 @@ body{
 
 }
 .message_last{
+    position: relative;
     overflow: auto; /* Разрешаем появление полос прокрутки при необходимости */
     max-height: 400px; /* Устанавливаем максимальную высоту блока */
     margin: 0 auto; 
@@ -141,6 +178,54 @@ body{
     width: 400px; /* Фиксированная ширина блока */
     border-radius:20px 20px 0 0 ; /* Закругления только внизу */
 
+}
+
+/* .chat h2 {
+    text-align: center;
+    font-size: 20px;
+    position: relative;
+    
+}
+
+.user_chat h2 {
+    text-align: right;
+    font-size: 20px;
+    position: relative;
+    
+} */
+
+
+.container {
+    display: flex;
+}
+
+.chat, .user_chat {
+    flex-grow: 1;
+    font-size: 20px;
+    position: relative;
+}
+
+.chat {
+    text-align: center;
+}
+
+.user_chat {
+    text-align: right;
+}
+
+
+.name_chat {
+   
+    top: 10px; 
+    left: 10px; 
+    width: 100%;
+    text-align: center;
+    
+}
+.message_last h2 {
+    position: absolute; /* Установка абсолютной позиции */
+    top: 0; /* Расположение сверху */
+    left: 0; /* Расположение слева */
 }
 
 .all-tab{
