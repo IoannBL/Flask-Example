@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Профиль пользователя {{ username }}{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="messages">
+                {% for msg in messages %}
+                    <p class="message">{{ msg }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="user-info">
+        <p>Имя пользователя: {{ user }}</p>
+        <p>Электронная почта: {{ email_us }}</p>
+    </div>
+
+    <h2>Профиль пользователя: {{ username}}</h2>
+    <h3>Email: {{ email }}</h3>
+    
+    <h3></h3>
+    <div class="user_chat">
+        <h2 class="name_chat">Чат с: {{ username }}</h2>
+    
+        <div class="message_last">
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message.user.name }}:   {{ message.content }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>    
+
+        <div class="first-container">
+            <form action="#" method="POST">
+                <p class="name-input">------------------------------------------</p>
+                <textarea name="content" placeholder="сообщение" class="input-field"></textarea>
+                <input type="submit" name="submit_message" value="Отправить" class="submit-button"/>
+            </form>
+        </div>
+    </div>    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var generalChatMessageLast = document.querySelector('.user_chat .message_last');
+            generalChatMessageLast.scrollTop = generalChatMessageLast.scrollHeight;
+        });
+    </script>
+{% endblock %}
+
