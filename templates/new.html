@@ -1,1 +1,77 @@
 {% extends "base.html" %}
+{% block title %}Пользователь{% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="messages">
+                {% for msg in messages %}
+                    <p class="message">{{ msg }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="user-list">
+        <ul>
+            {% for user in users %}
+            <li>
+                <a href="{{ url_for('profile', username=user.name) }}">Пользователь {{ user.name }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div class="user-info">
+        <p>Имя пользователя: {{ user_name }}</p>
+        <p>Электронная почта: {{ email }}</p>
+    </div>
+
+    <div class="container"> 
+        <div class="chat">
+            <h2>Общий чат:</h2>
+            <div class="message_last">
+                <!-- Placeholder for latest messages -->
+            </div>
+            <div class="first-container">
+                <form id="message-form" action="#" method="POST">
+                    <p class="name-input">------------------------------------------</p>
+                    <textarea name="content" placeholder="сообщение" class="input-field"></textarea>
+                    <input type="submit" name="submit_message" value="Отправить" class="submit-button"/>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Функция для загрузки последних сообщений из базы данных
+        function loadMessages() {
+            $.ajax({
+                url: '/latest_messages',  // Используем относительный путь
+                method: 'GET',
+                success: function(response) {
+                    // При успешном получении ответа, заменяем содержимое блока .message_last на новые сообщения
+                    $('.message_last').html(response);
+                    
+                    // Прокручиваем окно чата вниз, чтобы видеть новые сообщения
+                    var chatWindow = $('.chat .message_last');
+                    chatWindow.scrollTop(chatWindow[0].scrollHeight);
+                },
+                error: function(xhr, status, error) {
+                    // Обрабатываем ошибку, если запрос не удалось выполнить
+                    console.error('Ошибка при выполнении запроса:', error);
+                }
+            });
+        }
+        
+        // Загрузить сообщения при загрузке страницы
+        $(document).ready(function() {
+            loadMessages();
+        });
+        
+        // Периодически обновлять сообщения каждые 5 секунд (измените интервал по вашему усмотрению)
+        setInterval(function() {
+            loadMessages();
+        }, 5000); // 5000 миллисекунд = 5 секунд
+    </script>
+{% endblock %}

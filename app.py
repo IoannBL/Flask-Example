@@ -3,13 +3,17 @@ from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 app.secret_key = "hello"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-# app.permanent_session_lifetime = timedelta(minutes=5)
+app.permanent_session_lifetime = timedelta(minutes=5)
+
+
+socketio = SocketIO(app)
+
 
 
 db = SQLAlchemy(app)
@@ -43,8 +47,21 @@ def home():
 def view():
     return render_template("view.html", values=Users.query.all())
 
+@socketio.on('new_message')
+def handle_new_message(message):
+    print(f"Проверка отправки: {message}")
+    user = session.get("user")
+    user_obj = Users.query.filter_by(name=user).first()
+    m = Message(user_id=user_obj._id, content=message["content"], recipient_id="all")
+    db.session.add(m)
+    db.session.commit()
+    emit('chat', {'username': user, 'content': message["content"]})
+    flash("Сообщение отправлено")
 
-@app.route("/user", methods=["POST", "GET"])
+
+
+# @app.route("/user", methods=["GET", "POST"])
+@app.route("/user")
 def user():
     """Отображает страницу пользователя. Обрабатывает сообщения общего чата. Выводит уведомления"""
     email = None
@@ -55,14 +72,15 @@ def user():
         user_obj = Users.query.filter_by(name=user).first()
         email = user_obj.email
         
-        if request.method == "POST":
-            content = request.form.get("content")
-            if content:
-                user_obj = Users.query.filter_by(name=user).first()
-                message = Message(user_id=user_obj._id, content=content, recipient_id="all" ) 
-                db.session.add(message)
-                db.session.commit()
-                flash("Сообщение отправлено")
+        # if request.method == "POST":
+        #     content = request.form.get("content")
+        #     if content:
+        #         user_obj = Users.query.filter_by(name=user).first()
+        #         message = Message(user_id=user_obj._id, content=content, recipient_id="all") 
+        #         db.session.add(message)
+        #         db.session.commit()    
+        #         flash("Сообщение отправлено")
+                
         messages = Message.query.filter_by(recipient_id="all").all()           
     else:
         flash("Вы не вошли в систему")
@@ -162,4 +180,5 @@ def logout():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True)   
+    socketio.run(app, debug=True)  
+ 
